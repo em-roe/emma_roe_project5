@@ -3,6 +3,8 @@ import './App.css';
 import './newPlant.css'
 import firebase from './firebase';
 import NewPlant from './NewPlant';
+import AddNewButton from './AddNewButton'
+// import PlantShelf from './PlantShelf';
 
 const dbMain = firebase.database().ref();
 
@@ -10,8 +12,8 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-
-      plantShelf: {}
+      // plantShelf: {},
+      NewPlant: {}
     }
   }
 
@@ -35,6 +37,7 @@ class App extends Component {
     return (
       <div className="App">
         <NewPlant />
+        {/* <PlantShelf /> */}
       </div>
     );
   }

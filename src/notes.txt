@@ -1,0 +1,3 @@
+- need to clear the form after submit 
+
+- how to set a property on an object if it's not set in the form...... 

@@ -2,6 +2,9 @@
   display: flex;
   flex-direction: column;
   width: 50%;
+  border: 4px solid turquoise;
+  margin: 0 auto;
+  padding: 1%;
 }
 
 fieldset {
@@ -9,3 +12,15 @@ fieldset {
   flex-direction: column;
 }
 
+label {
+  float: left;
+	text-align: right;
+	margin-right: 15px;
+	width: 100px;
+}
+
+input {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
