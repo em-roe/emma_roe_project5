@@ -8,10 +8,16 @@ class AddNewButton extends Component {
     }
   }
 
+  buttonChecked = () => {
+    this.setState({
+      visible: false,
+    })
+  }
+
   render() {
     return (
       <div className="Button">
-        <button>Add New Plant</button>
+        <button onClick={this.buttonChecked}>Add New Plant</button>
       </div>
     );
   }
