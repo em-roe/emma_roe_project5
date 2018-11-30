@@ -1,105 +1,14 @@
-import React, { Component } from 'react';
-import firebase from './firebase';
-
-const dbMain = firebase.database().ref();
+import React from 'react';
 
 const NewPlantForm = (props) => {
 
-  // handleWater = (event) => {
-  //   console.log(event.target.id);
-
-  //   this.setState({
-  //     waterAmount: event.target.id,
-  //   })
-  // }
-
-  // handleSun = (event) => {
-  //   this.setState({
-  //     sunshine: event.target.id,
-  //   })
-  // }
-
-  //here we created a new handleChecked method to target only the checkboxes. 
-  // if the plant type exists in the array, then remove it. 
-  //if it doens't exist, add it to the array.
-  // handleChecked = (event) => {
-  //   const newTypeOfPlant = this.state.typeOfPlant;
-  //   const indexOfPlantType = newTypeOfPlant.indexOf(event.target.id)
-
-  //   if (newTypeOfPlant.includes(event.target.id)) {
-  //     newTypeOfPlant.splice(indexOfPlantType, 1)
-  //   } else {
-  //     newTypeOfPlant.push(event.target.id)
-  //   }
-
-  //   this.setState({
-  //     typeOfPlant: newTypeOfPlant,
-  //   })
-  // }
-
-
-  //here I created a handleChange function to apply only to text inputs. 
-  // handleChange = (event) => {
-  //   this.setState({
-  //     [event.target.id]: event.target.value,
-  //   });
-  // };
-
-  // handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   event.target.reset();
-
-  //   let dateAdded = new Date();
-  //   let dd = dateAdded.getDate();
-  //   let mm = dateAdded.getMonth() + 1; //January is 0!
-  //   let yyyy = dateAdded.getFullYear();
-
-  //   if (dd < 10) {
-  //     dd = '0' + dd
-  //   }
-  //   if (mm < 10) {
-  //     mm = '0' + mm
-  //   }
-  //   dateAdded = mm + '/' + dd + '/' + yyyy;
-
-
-  //   const savedPlant = {
-  //     nickname: this.state.nickname,
-  //     typeOfPlant: this.state.typeOfPlant,
-  //     species: this.state.species,
-  //     dateAdded: dateAdded,
-  //     waterAmount: this.state.waterAmount,
-  //     sunshine: this.state.sunshine,
-  //     happiness: this.state.happiness,
-  //     repotted: this.state.repotted,
-  //     acquiredOn: this.state.acquiredOn,
-  //     notes: this.state.notes,
-  //     plantImage: this.state.plantImage,
-  //   }
-
-  //   dbMain.push(savedPlant);
-  //   console.log(savedPlant);
-
-  //   // this.setState({
-  //   //   nickname: "",
-  //   //   typeOfPlant: [],
-  //   //   species: "",
-  //   //   waterAmount: null,
-  //   //   sunshine: null,
-  //   //   happiness: "",
-  //   //   repotted: "",
-  //   //   acquiredOn: "",
-  //   //   notes: "",
-  //   //   plantImage: "",
-  //   //   dateAdded: "",
-  //   // })
-
-  // }
-
-
+  
   return(
-    <div>
-     <form onSubmit={props.handleSubmit} id="newPlant" className="clearfix">
+    <div id="newPlantForm">
+    
+      <button id="close" onClick={props.buttonClose}>CLOSE ME</button>
+
+      <form onSubmit={props.handleSubmit} id="newPlant" className="clearfix"> 
 
       <label htmlFor="nickname">Nickname:</label>
       <input
@@ -107,6 +16,7 @@ const NewPlantForm = (props) => {
         onChange={props.handleChange}
         type="text"
         value={props.newPlant.nickname}
+        required
       />
 
       <fieldset id="typeOfPlant">
@@ -116,28 +26,28 @@ const NewPlantForm = (props) => {
           id="trailingClimbing"
           onChange={props.handleChecked}
           name="type"
-          type="checkbox" />
+          type="radio" />
 
         <label htmlFor="succulentsCacti">Succulent/Cacti</label>
         <input
           id="succulentsCacti"
           onChange={props.handleChecked}
           name="type"
-          type="checkbox" />
+          type="radio" />
 
         <label htmlFor="tropical">Tropical</label>
         <input
           id="tropical"
           onChange={props.handleChecked}
           name="type"
-          type="checkbox" />
+          type="radio" />
 
         <label htmlFor="tallTrees">Tall/Tree</label>
         <input
           id="tallTrees"
           onChange={props.handleChecked}
           name="type"
-          type="checkbox" />
+          type="radio" />
 
 
         <label htmlFor="foliage">Foliage</label>
@@ -145,21 +55,21 @@ const NewPlantForm = (props) => {
           id="foliage"
           onChange={props.handleChecked}
           name="type"
-          type="checkbox" />
+          type="radio" />
 
         <label htmlFor="flowering">Flowering</label>
         <input
           id="flowering"
           onChange={props.handleChecked}
           name="type"
-          type="checkbox" />
+          type="radio" />
 
         <label htmlFor="other">Other</label>
         <input
           id="other"
           onChange={props.handleChecked}
           name="type"
-          type="checkbox" />
+          type="radio" />
       </fieldset>
 
       <label htmlFor="species">Species:</label>
@@ -167,7 +77,7 @@ const NewPlantForm = (props) => {
         id="species"
         onChange={props.handleChange}
         type="text"
-          value={props.newPlant.species} />
+        value={props.newPlant.species} />
 
       <fieldset id="waterAmount">
         <legend>How Thirsty?</legend>
@@ -263,38 +173,12 @@ const NewPlantForm = (props) => {
           value={props.newPlant.notes}
       />
 
-      <input type="submit" value="Add to Collection" />
+      <input type="submit" value="Add to Collection" 
+          onSubmit={props.handleSubmit}/>
     </form>
     </div>
   )
 
-// class NewPlantForm extends Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       nickname: "",
-//       typeOfPlant: [],
-//       waterAmount: null,
-//       sunshine: null,
-//       happiness: "",
-//       repotted: "",
-//       acquiredOn: "",
-//       notes: "",
-//       plantImage: "",
-//     }
-//   }
-
-  //removeing this from here and adding it on the app 
-  // componentDidMount() {
-  //   dbMain.on('value', (snapshot) => {
-  //     this.setState({
-  //       plantsInCollection: snapshot.val()
-  //     });
-  //   });
-  // }
-
-  
- 
 }
  export default NewPlantForm;
 

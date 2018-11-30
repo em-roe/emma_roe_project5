@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import './newPlantForm.css'
 import firebase from './firebase';
-// import PlantShelf from './PlantShelf';
 import AddNewButton from './AddNewButton'
 import NewPlantForm from './NewPlantForm';
-import Plant from './Plant';
+import Plant from './PlantCard';
 
 const dbMain = firebase.database().ref();
 
@@ -13,6 +12,7 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
+      showForm: false,
       plantShelf: {},
       newPlant: {
         nickname: "",
@@ -31,11 +31,15 @@ class App extends Component {
   }
 
   componentDidMount() {
+
     dbMain.on('value', (snapshot) => {
+      if(snapshot.val() ){
       this.setState({
-        plantShelf: snapshot.val()
-      });
+          plantShelf: snapshot.val()
+        })
+      }
     });
+
   }
 
   handleChange = (event) => {
@@ -48,15 +52,8 @@ class App extends Component {
   };
 
   handleChecked = (event) => {
-    const newTypeOfPlant = this.state.newPlant.typeOfPlant;
-    const indexOfPlantType = newTypeOfPlant.indexOf(event.target.id)
-    if (newTypeOfPlant.includes(event.target.id)) {
-      newTypeOfPlant.splice(indexOfPlantType, 1)
-    } else {
-      newTypeOfPlant.push(event.target.id)
-    }
     let newObj = Object.assign({}, this.state.newPlant);
-    newObj.typeOfPlant = newTypeOfPlant;
+    newObj.typeOfPlant = event.target.id;
     this.setState({
       newPlant: newObj,
     })
@@ -82,32 +79,65 @@ class App extends Component {
     event.preventDefault();
     event.target.reset();
     dbMain.push(this.state.newPlant);
+    this.setState({
+      showForm: false,
+    });
+
+    this.setState({
+      [event.target.id]: ""
+    });
   }
+  
+
+  buttonClicked = () => {
+    this.setState({
+      showForm: true,
+    });
+  }
+
+  buttonClose = () => {
+    this.setState({
+      showForm: false,
+    });
+  }
+
+
+  deleteButton = (event) => {
+    const firebaseKey = event.target.id;
+
+    console.log(firebaseKey);
+
+    const plantRef = firebase.database().ref(`/${firebaseKey}`)
+    plantRef.remove();
+  }
+
   
   render() {
     return (
       <div className="App">
 
-        <AddNewButton />
+        <AddNewButton buttonClicked={this.buttonClicked}/>
         
-        {/* this renders the newPlantForm */}
-        {<NewPlantForm
-          newPlant={this.state.newPlant} 
-          handleWater={this.handleWater} 
-          handleChecked={this.handleChecked} 
-          handleChange={this.handleChange} 
-          handleSubmit={this.handleSubmit} 
+        {this.state.showForm
+         ? <NewPlantForm
+          buttonClose={this.buttonClose}
+          newPlant={this.state.newPlant}
+          handleWater={this.handleWater}
+          handleChecked={this.handleChecked}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
           handleSun={this.handleSun}
-        />
+        /> 
+        : null
         }
 
-        {/* this renders a new div for each "plant object" that exists in the firebase DB 
-          so, why is "water amount" appearing when there is no plant object with it?*/}
-
+       
+        
         { Object.entries(this.state.plantShelf).map(plantObj => {
           return (
             <div>
             < Plant 
+            key={plantObj[0]}
             nickname={plantObj[1].nickname}
             typeOfPlant={plantObj[1].typeOfPlant}
             species={plantObj[1].species}
@@ -118,8 +148,10 @@ class App extends Component {
             acquiredOn={plantObj[1].acquiredOn}
             notes={plantObj[1].notes}
             plantImage={plantObj[1].plantImage}
+            firebaseKey={plantObj[0]}
+            deleteButton={this.deleteButton}
             />
-            <p>**********************</p>
+        
             </div>
           )
         })
