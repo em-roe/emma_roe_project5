@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,900|Roboto:400,700');
+
+/* Button Styling */
+button, input[type='submit'] {
+    display: inline-block;
+    border: none;
+    border-radius: 15px;
+    padding: 1rem 2rem;
+    margin: .5rem;
+    text-decoration: none;
+    background: #4a7c59;
+    color: #ffffff;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.6rem;
+    cursor: pointer;
+    text-align: center;
+    transition: background 250ms ease-in-out, 
+                transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+button:hover,
+button:focus,
+input[type='submit']:hover,
+input[type='submit']:focus {
+  background: #68b0ab;
+}
+
+button:focus,
+input[type='submit']:focus {
+  outline: 1px solid #fff;
+  outline-offset: -4px;
+}
+
+button:active,
+input[type='submit']:active {
+    transform: scale(0.99);
+}
+
+.addNewButton {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.8rem;
+  /* text-shadow: 2px 2px #c8d5b9; */
+}

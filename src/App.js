@@ -1,10 +1,31 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import './App.css';
-import './newPlantForm.css'
+import './styles/setup.css';
+import './styles/newPlantForm.css';
+import './styles/button.css';
 import firebase from './firebase';
 import AddNewButton from './AddNewButton'
 import NewPlantForm from './NewPlantForm';
 import Plant from './PlantCard';
+import { library } from '@fortawesome/fontawesome-svg-core'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTint, faSun } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faTint, faSun)
+
+const defaultFormState = {
+  nickname: "",
+  typeOfPlant: [],
+  species: "",
+  waterAmount: null,
+  sunshine: null,
+  happiness: "",
+  repotted: "",
+  acquiredOn: "",
+  notes: "",
+  plantImage: "",
+  dateAdded: "",
+}
 
 const dbMain = firebase.database().ref();
 
@@ -14,32 +35,18 @@ class App extends Component {
     this.state = {
       showForm: false,
       plantShelf: {},
-      newPlant: {
-        nickname: "",
-        typeOfPlant: [],
-        species: "",
-        waterAmount: null,
-        sunshine: null,
-        happiness: "",
-        repotted: "",
-        acquiredOn: "",
-        notes: "",
-        plantImage: "",
-        dateAdded: "",
-      },
+      newPlant: defaultFormState
     }
   }
 
+
+//here we're setting state with a snapshot of the database OR || an empty object 
   componentDidMount() {
-
     dbMain.on('value', (snapshot) => {
-      if(snapshot.val() ){
       this.setState({
-          plantShelf: snapshot.val()
+          plantShelf: snapshot.val() || {}
         })
-      }
     });
-
   }
 
   handleChange = (event) => {
@@ -53,7 +60,7 @@ class App extends Component {
 
   handleChecked = (event) => {
     let newObj = Object.assign({}, this.state.newPlant);
-    newObj.typeOfPlant = event.target.id;
+    newObj.typeOfPlant = event.target.value;
     this.setState({
       newPlant: newObj,
     })
@@ -61,7 +68,7 @@ class App extends Component {
 
   handleWater = (event) => {
     let newObj = Object.assign({}, this.state.newPlant);
-    newObj.waterAmount = event.target.id;
+    newObj.waterAmount = event.target.value;
     this.setState({
       newPlant: newObj,
     })
@@ -69,7 +76,7 @@ class App extends Component {
 
   handleSun = (event) => {
     let newObj = Object.assign({}, this.state.newPlant);
-    newObj.sunshine = event.target.id;
+    newObj.sunshine = event.target.value;
     this.setState({
       newPlant: newObj,
     })
@@ -84,10 +91,9 @@ class App extends Component {
     });
 
     this.setState({
-      [event.target.id]: ""
+      newPlant: defaultFormState
     });
   }
-  
 
   buttonClicked = () => {
     this.setState({
@@ -105,8 +111,6 @@ class App extends Component {
   deleteButton = (event) => {
     const firebaseKey = event.target.id;
 
-    console.log(firebaseKey);
-
     const plantRef = firebase.database().ref(`/${firebaseKey}`)
     plantRef.remove();
   }
@@ -114,7 +118,7 @@ class App extends Component {
   
   render() {
     return (
-      <div className="App">
+      <div className="App wrapper">
 
         <AddNewButton buttonClicked={this.buttonClicked}/>
         
@@ -133,29 +137,30 @@ class App extends Component {
 
        
         
+        <div class="plantShelf">
         { Object.entries(this.state.plantShelf).map(plantObj => {
           return (
-            <div>
-            < Plant 
-            key={plantObj[0]}
-            nickname={plantObj[1].nickname}
-            typeOfPlant={plantObj[1].typeOfPlant}
-            species={plantObj[1].species}
-            water={plantObj[1].waterAmount}
-            sunshine={plantObj[1].sunshine}
-            happiness={plantObj[1].happiness}
-            repotted={plantObj[1].repotted}
-            acquiredOn={plantObj[1].acquiredOn}
-            notes={plantObj[1].notes}
-            plantImage={plantObj[1].plantImage}
-            firebaseKey={plantObj[0]}
-            deleteButton={this.deleteButton}
-            />
-        
-            </div>
-          )
-        })
-      }  
+            <Fragment>
+              < Plant 
+              key={plantObj[0]}
+              nickname={plantObj[1].nickname}
+              typeOfPlant={plantObj[1].typeOfPlant}
+              species={plantObj[1].species}
+              water={plantObj[1].waterAmount}
+              sunshine={plantObj[1].sunshine}
+              // happiness={plantObj[1].happiness}
+              repotted={plantObj[1].repotted}
+              acquiredOn={plantObj[1].acquiredOn}
+              notes={plantObj[1].notes}
+              plantImage={plantObj[1].plantImage}
+              firebaseKey={plantObj[0]}
+              deleteButton={this.deleteButton}
+              />
+            </Fragment>
+            )
+          })
+        } 
+        </div> 
       </div>
     );
   }
