@@ -9,9 +9,9 @@ import NewPlantForm from './NewPlantForm';
 import Plant from './PlantCard';
 import { library } from '@fortawesome/fontawesome-svg-core'
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTint, faSun } from '@fortawesome/free-solid-svg-icons'
+import { faTint, faSun, faWindowClose } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faTint, faSun)
+library.add(faTint, faSun, faWindowClose)
 
 const defaultFormState = {
   nickname: "",
@@ -122,6 +122,8 @@ class App extends Component {
 
         <AddNewButton buttonClicked={this.buttonClicked}/>
         
+        
+
         {this.state.showForm
          ? <NewPlantForm
           buttonClose={this.buttonClose}
@@ -149,7 +151,7 @@ class App extends Component {
               water={plantObj[1].waterAmount}
               sunshine={plantObj[1].sunshine}
               // happiness={plantObj[1].happiness}
-              repotted={plantObj[1].repotted}
+              repotted={plantObj[1].repotted} 
               acquiredOn={plantObj[1].acquiredOn}
               notes={plantObj[1].notes}
               plantImage={plantObj[1].plantImage}

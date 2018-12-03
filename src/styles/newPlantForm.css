@@ -1,40 +1,74 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:400,900|Roboto:400,400i,700');
 
+
+
 /* form styling */
 #newPlantForm {
-  /* font-family: 'Roboto', sans-serif; */
-  /* border: 4px solid turquoise; */
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  width: 60%;
-  margin: 0 auto;
-  padding: 1%;
+  width: 85%;
+  margin-bottom: 2rem;
+  padding: 4% 10% 1% 10%;
   box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.10);
+  background: #dfe8db;
+  color: #2e2c2f;
+  position: relative;
+  font-size: 1.8rem;
 }
 
 input {
   border: none;
+  background: #dfe8db;
 }
 
 #nickname {
-  width: 50%;
+  width: 30%;
   margin: 0;
+  border-bottom: 1px solid;
+}
+
+.top {
+  text-align: left;
+  /* position: relative; */
+}
+
+.top label {
+  padding-right: 1rem;
+}
+
+.second {
+  margin-top: 2%;
+  margin-bottom: 2%;
+  display: flex; 
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 #sunWater {
   display: flex;
+  justify-content: space-between;
 }
 
-
+legend {
+  text-transform: uppercase;
+  padding-bottom: 1%;
+  font-weight: bold;
+}
 
 fieldset {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  margin: 0 auto;
   border: none;
+  text-align: left;
+  margin-bottom: 2%;
+  padding: 0;
+}
+
+fieldset.typeOfPlant {
+  margin: 0 auto;
 }
 
 input[type="radio"] {
@@ -42,11 +76,12 @@ input[type="radio"] {
 }
 
 input[type="radio"]:checked+label{ 
-  border: 1px solid blue; 
+  font-weight: bold; 
 } 
 
 input[type="radio"]:hover+label{
-  transform: scale(1.2);
+  /* transform: scale(1.2); */
+  font-weight: bold;
 }
 
 .waterIcon {
@@ -54,51 +89,92 @@ input[type="radio"]:hover+label{
 }
 
 .sun {
-  color: #edda61;
+  color: #ffc918;
 }
 
 .typeNotes {
   display: flex;
   flex-direction: row;
-    justify-content: flex-start;
+  justify-content: flex-start;
+  margin: 1rem;
 
 }
 
 #typeOfPlant {
- flex-basis: 50%;
+ /* flex-basis: 30%; */
  text-align: left;
+ padding: 0;
+ margin: 0;
 }
 
+
 .speciesInput {
-  text-align:left;
-  width: 60%;
+  text-align:right;
+  width: 100%;
+  margin-bottom: 3rem;
+  margin-left: 1rem;
+  flex-direction: row;
 }
 
 .speciesInput input {
   background: none;
   border-bottom: 1px solid black;
+  /* padding: 1px; */
+  font-style: italic;
 }
 
-input[id="species"]::placeholder {
-  font-style: italic;
-  padding: 5px;
+.speciesInput label {
+  padding-right: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
 }
+
+.speciesDateContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+input[type="date"]{
+  font-style: italic;
+  color: #475b63;
+  margin-bottom: 3rem;
+}
+
 
 textArea {
-  border: none;
+  border: 2px solid #475b63;
+  background: none;
+  padding: 1rem;
 }
 
 div.notes{
   display: flex;
   flex-direction: column;
+  text-align: left;
+  text-transform: uppercase;
+  font-weight: bold;
 }
+
+
+/* shelf styling */
+.plantShelf {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
 
 /* plantCard styling */
 .plantCard {
   border: none;
   text-align: left;
-  width: 50%;
-  margin: 0 auto;
+  max-width: 45%;
+  /* margin: 0 auto; */
+  margin-bottom: 2rem;
   padding: 2rem;
   background-color: #fdfaf2;
   box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.10);
@@ -106,6 +182,9 @@ div.notes{
 }
 
 h4 {
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  font-family: "Lato", sans-serif;
   padding: 0;
   margin: 0;
 }
@@ -128,20 +207,19 @@ li {
 }
 
 li {
-  /* background-image: url("../assets/watering-can.png"); */
-  padding: 1rem 3rem 1rem 5rem;
+  padding: .5rem 0rem;
   background-position: 0 1rem;
   background-size: 5rem auto;
   background-repeat: no-repeat;
 }
 
-li.species{
+/* li.species{
   background-image: url("../assets/plant.png");
 }
 
 li.water {
   background-image: url("../assets/watering-can.png");
-}
+} */
 
 li.sunshine{
 
@@ -153,12 +231,4 @@ li.sunshine{
   width: 20%;
   margin: 0;
   padding: 0;
-}
-
-/* shelf styling */
-.plantShelf {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  margin: 0 auto;
 }

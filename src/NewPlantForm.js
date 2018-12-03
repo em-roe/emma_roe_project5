@@ -7,24 +7,29 @@ const NewPlantForm = (props) => {
   return(
     <div id="plantForm">
 
-
       <form onSubmit={props.handleSubmit} id="newPlantForm" className="clearfix"> 
 
-      <div>
-        <label htmlFor="nickname">Name:
-      <input
-        id="nickname"
-        onChange={props.handleChange}
-        type="text"
-        value={props.newPlant.nickname}
-        required/>
-        </label>
-      <button id="close" className="close" onClick={props.buttonClose}>CLOSE ME</button>
+
+      <div className="top">
+          <label htmlFor="nickname">Nickname:</label>
+        <input
+          id="nickname"
+          onChange={props.handleChange}
+          type="text"
+          value={props.newPlant.nickname}
+          required/>
+
+          <label htmlFor="close" className="visuallyhidden">Close</label>
+          <button id="close" className="close" onClick={props.buttonClose}>
+            <FontAwesomeIcon icon="window-close" />
+          </button>
+
+        
         </div>
 
-      <div className="typeNotes">
-      <fieldset id="typeOfPlant">
-        <legend> Type of Plant </legend>
+      <div className="second">
+      <fieldset id="typeOfPlant" className="typeOfPlant">
+        <legend> Type of Plant: </legend>
 
         <input
           id="trailingClimbing"
@@ -89,33 +94,47 @@ const NewPlantForm = (props) => {
           <label htmlFor="other">Other</label>
           
       </fieldset>
-         <div className="notes">
-          <label className="visuallyhidden" htmlFor="notes">Additional Notes:
-          </label>
-          <textarea
-              rows="10"
-              cols="30"
-              id="notes"
+
+          <div className="speciesDateContainer">
+
+          <div className="speciesInput">
+            <label htmlFor="species">Species:</label>
+            <input
+              id="species"
               onChange={props.handleChange}
               type="text"
-              value={props.newPlant.notes}
-              placeholder="enter notes, detailed care instructions, or just growth encouragement" />
+              value={props.newPlant.species}
+              placeholder="e.g. philodendron "  />
           </div>
-        </div>
-      <div className="speciesInput">
-      <label htmlFor="species">Species:
+          
+        <label htmlFor="repotted">Last repotted on:
       <input
-        id="species"
-        onChange={props.handleChange}
-        type="text"
-        value={props.newPlant.species}
-        placeholder="e.g. philodendron "  />
+            id="repotted"
+            onChange={props.handleChange}
+            type="date"
+            value={props.newPlant.repotted} />
         </label>
+
+        <label htmlFor="acquiredOn">Date acquired:
+      <input
+            id="acquiredOn"
+            onChange={props.handleChange}
+            type="date"
+            value={props.newPlant.dateAcquired} />
+        </label>
+
+        
+      
       </div> 
+
+      </div>
+
+
+      
 
       <div id="sunWater">
         <fieldset id="waterAmount">
-          <legend>Water Requirements</legend>
+          <legend>Water Requirements:</legend>
           <input
             id="oneWater"
             onChange={props.handleWater}
@@ -190,6 +209,7 @@ const NewPlantForm = (props) => {
             <span className="displayIcon sun"> <FontAwesomeIcon icon='sun' /> </span>
             </label>          
         </fieldset>
+
       </div>  
 
       {/* <label htmlFor="happiness">How happy:
@@ -200,21 +220,6 @@ const NewPlantForm = (props) => {
         value={props.newPlant.happiness}/>
       </label> */}
 
-      <label htmlFor="repotted">Last repotted on:
-      <input
-        id="repotted"
-        onChange={props.handleChange}
-        type="date"
-        value={props.newPlant.repotted}/>
-        </label>
-
-      <label htmlFor="acquiredOn">Date acquired:
-      <input
-        id="acquiredOn"
-        onChange={props.handleChange}
-        type="date"
-        value={props.newPlant.dateAcquired}/>
-        </label>
 
       {/* <label htmlFor="plantImage">Display Icon:</label>
         <input
@@ -224,15 +229,27 @@ const NewPlantForm = (props) => {
           value={this.state.plantImage}
         /> */}
 
-     
+        <div className="notes">
+          <label className="" htmlFor="notes">Additional Notes:
+          </label>
+          <textarea
+            rows="5"
+            cols="10"
+            id="notes"
+            onChange={props.handleChange}
+            type="text"
+            value={props.newPlant.notes}
+            placeholder="enter notes, detailed care instructions, or just growth encouragement" />
+        </div>
 
-      <label htmlFor="submit"> Add to Collection
 
+      <label htmlFor="submit" className="visuallyhidden"> Add to Collection
+
+      </label>
       <input 
       id="submit"
       type="submit" value="Add to Collection" 
           onSubmit={props.handleSubmit}/>
-        </label>
     </form>
     </div>
   )
