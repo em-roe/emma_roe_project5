@@ -45,7 +45,7 @@ const Plant = (props) => {
           name="delete">
           <FontAwesomeIcon
           style={{
-            fontSize: '1.2rem'
+            fontSize: '1.6rem'
           }} icon="window-close" />
         </button>
 

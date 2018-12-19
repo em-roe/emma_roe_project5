@@ -7,6 +7,8 @@ import firebase from './firebase';
 import AddNewButton from './AddNewButton'
 import NewPlantForm from './NewPlantForm';
 import Plant from './PlantCard';
+import swal from 'sweetalert';
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faTint, faSun, faWindowClose, faSkullCrossbones } from '@fortawesome/free-solid-svg-icons'
 
@@ -110,7 +112,7 @@ class App extends Component {
   }
 
   handleToxic = (event) => {
-    
+
   }
 
   handleWater = (event) => {
@@ -156,26 +158,31 @@ class App extends Component {
     });
   }
 
-  editButton = () => {
-    //firebase updated method 
-    // update specifc node id 
-    // need to reveal a new input 
-    //tollged a new new text area and submit button 
-  }
-
 
   deleteButton = (event) => {
     console.log("trying to delete");
-    console.log(event.target.id);
     const firebaseKey = event.target.id;
-//i think i need a condition here to check if it's a guest or a authenticated user 
-    // if guest, need to go into the guest node first, and then find the firebase key? 
     const plantRef = firebase.database().ref(`/${firebaseKey}`);
     const plantRefGuest = firebase.database().ref(`/guest/${firebaseKey}`);
-    plantRef.remove();
+    
     plantRefGuest.remove();
-  }
+    plantRef.remove();
 
+  }
+    // swal({
+    //   title: "Are you sure?",
+    //   text: "Remove plant from collection",
+    //   buttons: true,
+    // }).then((submit) => {
+    //   if (submit) {
+    //     console.log("tried to delete");
+    //     plantRef.remove() && plantRefGuest.remove();
+    //   } else {
+    //     console.log("not working");
+    //   }
+    // });
+
+ 
   
   render() {
     return (
@@ -186,7 +193,7 @@ class App extends Component {
         style={{
           margin: '0 auto',
         }}
-        >Plant Shelf</h1>
+        >Plant Care Catalog</h1>
         {this.state.user ? 
         <button onClick={this.logout}>Log Out</button> 
         :

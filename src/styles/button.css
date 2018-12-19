@@ -78,15 +78,16 @@ button.close:hover {
   color: #4a7c59;
   padding: 0;
   margin: 0;
-  font-size: 5rem;
-  padding-left: 1rem;
-  padding-top: 2rem;
+  /* font-size: 5rem; */
+  /* padding-left: 1rem;
+  padding-top: 2rem; */
   text-align: left;
+  width: 5%;
 }
 
 .deleteButton:hover {
   background: none;
-  color: #2e3a40;
+  color: red;
 }
 
 #removePlant {

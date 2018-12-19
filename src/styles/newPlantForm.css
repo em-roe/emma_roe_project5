@@ -21,8 +21,12 @@
 
 h1 {
   font-family: "Lato", sans-serif;
-  font-weight: 400;
-}
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 4rem;
+  background: white;
+  /* text-shadow: -1px 1px 1px rgba(0, 0, 0, 1); */
+}               
 
 input {
   border: none;
@@ -107,7 +111,6 @@ input[type="radio"]:hover+label{
 }
 
 #typeOfPlant {
- /* flex-basis: 30%; */
  text-align: left;
  padding: 0;
  margin: 0;
@@ -181,11 +184,11 @@ div.notes{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 30%;
+  width: 40%;
   margin-bottom: 2rem;
   padding: 2rem;
   color: #2e2c2f;
-  background-color: #DFE8DB;
+  background-color: white;
   box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.10);
          
 }
