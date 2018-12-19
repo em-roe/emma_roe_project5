@@ -9,6 +9,7 @@
   flex-direction: column;
   justify-content: flex-start;
   width: 85%;
+  margin-top: 2rem;
   margin-bottom: 2rem;
   padding: 4% 10% 1% 10%;
   box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.10);
@@ -16,6 +17,11 @@
   color: #2e2c2f;
   position: relative;
   font-size: 1.8rem;
+}
+
+h1 {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
 }
 
 input {
@@ -159,7 +165,7 @@ div.notes{
 
 /* shelf styling */
 .plantShelf {
-  width: 90%;
+  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -172,13 +178,16 @@ div.notes{
 .plantCard {
   border: none;
   text-align: left;
-  max-width: 45%;
-  /* margin: 0 auto; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30%;
   margin-bottom: 2rem;
   padding: 2rem;
-  background-color: #fdfaf2;
+  color: #2e2c2f;
+  background-color: #DFE8DB;
   box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.10);
-          
+         
 }
 
 h4 {

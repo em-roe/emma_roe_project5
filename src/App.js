@@ -8,10 +8,9 @@ import AddNewButton from './AddNewButton'
 import NewPlantForm from './NewPlantForm';
 import Plant from './PlantCard';
 import { library } from '@fortawesome/fontawesome-svg-core'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTint, faSun, faWindowClose } from '@fortawesome/free-solid-svg-icons'
+import { faTint, faSun, faWindowClose, faSkullCrossbones } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faTint, faSun, faWindowClose)
+library.add(faTint, faSun, faWindowClose, faSkullCrossbones)
 
 const defaultFormState = {
   nickname: "",
@@ -27,27 +26,71 @@ const defaultFormState = {
   dateAdded: "",
 }
 
-const dbMain = firebase.database().ref();
+const provider = new firebase.auth.GoogleAuthProvider();
+const auth = firebase.auth();
 
 class App extends Component {
   constructor(){
     super();
     this.state = {
+      user: null,
       showForm: false,
+      showAddButton: true,
       plantShelf: {},
       newPlant: defaultFormState
     }
   }
 
+  login = () => {
+    auth.signInWithPopup(provider).then((result) => {
+        this.setState({
+          user: result.user
+        });
+      });
+  }
 
-//here we're setting state with a snapshot of the database OR || an empty object 
-  componentDidMount() {
-    dbMain.on('value', (snapshot) => {
+  logout = () => {
+    auth.signOut()
+      .then(() => {
+        this.setState({
+          user: null,
+          plantShelf: {},
+        });
+      });
+  }
+
+  anonLogIn = () => {
+    auth.signInAnonymously().then((result) => {
       this.setState({
-          plantShelf: snapshot.val() || {}
-        })
+        user: result.user,
+      })
+    })
+  }
+
+
+  componentDidMount() {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({
+          user: user
+        }
+          ,() => {
+            if (this.state.user.isAnonymous){
+              this.dbRef = firebase.database().ref('/guest')
+            } else {
+              this.dbRef = firebase.database().ref(`/${this.state.user.uid}`)
+            }
+              this.dbRef.on('value', (snapshot) => {
+              this.setState({
+                plantShelf: snapshot.val() || {}
+              })
+            })
+          });
+      }
     });
   }
+
+
 
   handleChange = (event) => {
     let newObj = Object.assign({}, this.state.newPlant);
@@ -64,6 +107,10 @@ class App extends Component {
     this.setState({
       newPlant: newObj,
     })
+  }
+
+  handleToxic = (event) => {
+    
   }
 
   handleWater = (event) => {
@@ -85,11 +132,11 @@ class App extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     event.target.reset();
-    dbMain.push(this.state.newPlant);
+    this.dbRef.push(this.state.newPlant);
     this.setState({
       showForm: false,
+      showAddButton: true,
     });
-
     this.setState({
       newPlant: defaultFormState
     });
@@ -98,21 +145,35 @@ class App extends Component {
   buttonClicked = () => {
     this.setState({
       showForm: true,
+      showAddButton: false,
     });
   }
 
   buttonClose = () => {
     this.setState({
       showForm: false,
+      showAddButton: true,
     });
+  }
+
+  editButton = () => {
+    //firebase updated method 
+    // update specifc node id 
+    // need to reveal a new input 
+    //tollged a new new text area and submit button 
   }
 
 
   deleteButton = (event) => {
+    console.log("trying to delete");
+    console.log(event.target.id);
     const firebaseKey = event.target.id;
-
-    const plantRef = firebase.database().ref(`/${firebaseKey}`)
+//i think i need a condition here to check if it's a guest or a authenticated user 
+    // if guest, need to go into the guest node first, and then find the firebase key? 
+    const plantRef = firebase.database().ref(`/${firebaseKey}`);
+    const plantRefGuest = firebase.database().ref(`/guest/${firebaseKey}`);
     plantRef.remove();
+    plantRefGuest.remove();
   }
 
   
@@ -120,9 +181,28 @@ class App extends Component {
     return (
       <div className="App wrapper">
 
+        <header>
+        <h1
+        style={{
+          margin: '0 auto',
+        }}
+        >Plant Shelf</h1>
+        {this.state.user ? 
+        <button onClick={this.logout}>Log Out</button> 
+        :
+        <>
+        <button onClick={this.login}>Login</button>
+        <button onClick={this.anonLogIn}>Try with Guest Use</button> 
+        </>
+        }
+        {this.state.showAddButton && this.state.user ? 
         <AddNewButton buttonClicked={this.buttonClicked}/>
+        : null 
+        }
         
-        
+        </header> 
+
+
 
         {this.state.showForm
          ? <NewPlantForm
@@ -150,13 +230,13 @@ class App extends Component {
               species={plantObj[1].species}
               water={plantObj[1].waterAmount}
               sunshine={plantObj[1].sunshine}
-              // happiness={plantObj[1].happiness}
               repotted={plantObj[1].repotted} 
               acquiredOn={plantObj[1].acquiredOn}
               notes={plantObj[1].notes}
               plantImage={plantObj[1].plantImage}
               firebaseKey={plantObj[0]}
               deleteButton={this.deleteButton}
+              editButton={this.editButton}
               />
             </Fragment>
             )

@@ -14,7 +14,13 @@ html {
 
 body {
   font-size: 1.6rem;
-  background-color: #bacdb0;
+  /* background-color: transparent; */
+  background-image: linear-gradient(rgba(121, 121, 121, 0.7), rgba(121, 121, 121, 0.7)), url('background.png');
+  /* background-image: url('background.png'), linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)); */
+  /* background-color: rgba(255, 255, 255, 0.5); */
+  background-repeat: repeat;
+  background-position: left top;
+  background-size: 25%;
   font-family: "Lato", sans-serif;
 }
 

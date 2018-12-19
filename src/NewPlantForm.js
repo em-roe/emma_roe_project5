@@ -104,7 +104,7 @@ const NewPlantForm = (props) => {
               onChange={props.handleChange}
               type="text"
               value={props.newPlant.species}
-              placeholder="e.g. philodendron "  />
+              placeholder="e.g. philodendron"  />
           </div>
           
         <label htmlFor="repotted">Last repotted on:
@@ -212,22 +212,6 @@ const NewPlantForm = (props) => {
 
       </div>  
 
-      {/* <label htmlFor="happiness">How happy:
-      <input
-        id="happiness"
-        onChange={props.handleChange}
-        type="text"
-        value={props.newPlant.happiness}/>
-      </label> */}
-
-
-      {/* <label htmlFor="plantImage">Display Icon:</label>
-        <input
-          id="plantImage"
-          onChange={props.handleChange}
-          type="text"
-          value={this.state.plantImage}
-        /> */}
 
         <div className="notes">
           <label className="" htmlFor="notes">Additional Notes:
@@ -239,8 +223,20 @@ const NewPlantForm = (props) => {
             onChange={props.handleChange}
             type="text"
             value={props.newPlant.notes}
-            placeholder="enter notes, detailed care instructions, or just growth encouragement" />
+            placeholder="enter notes, detailed care instructions, or general growth encouragement" />
         </div>
+
+        {/* <div className="toxic">
+          <label className="" htmlFor="toxic">Toxic to pets and children</label>
+          <input onChange={props.handleChange}
+          type="checkbox" id="toxic" name="toxic"> Toxic to pets and children</input>      
+        </div> */}
+
+        {/* <div>
+          <input type="checkbox" id="scales" name="scales"
+            checked> </input>
+            <label for="scales">Scales</label>
+        </div> */}
 
 
       <label htmlFor="submit" className="visuallyhidden"> Add to Collection

@@ -25,7 +25,6 @@ const Plant = (props) => {
 
         <li> <span className="displayIcon sun"> <FontAwesomeIcon icon='sun' /> </span><span className="listItem"> Light requirements: </span>{props.sunshine}</li>
 
-      {/* <li> <span className="listItem"> Current health status: </span>{props.happiness}</li> */}
 
     <li><span className="listItem">  Last repotted:</span> {props.repotted}</li>
 
@@ -34,13 +33,42 @@ const Plant = (props) => {
     <li> <span className="listItem">Notes:</span> {props.notes}</li>
         </ul>
 
+
+      <div id="removePlant">
+      <label htmlFor="delete" className="visuallyhidden">Remove plant from Collection</label>
+
         <button
           label="delete"
           className="deleteButton"
           onClick={props.deleteButton}
-          id={props.firebaseKey}>
-          good bye dead plant
+          id={props.firebaseKey}
+          name="delete">
+          <FontAwesomeIcon
+          style={{
+            fontSize: '1.2rem'
+          }} icon="window-close" />
         </button>
+
+      <label htmlFor="delete">remove from collection</label>
+      </div>
+
+      {/* <div id="editPlant">
+        <label htmlFor="edit" className="visuallyhidden">Edit plant Details</label>
+
+        <button
+          label="edit"
+          className="editButton"
+          onClick={props.editButton}
+          id={props.firebaseKey}
+          name="delete">
+          <FontAwesomeIcon
+            style={{
+              fontSize: '1.2rem'
+            }} icon="window-close" />
+        </button>
+
+        <label htmlFor="edit">Edit plant details</label>
+      </div> */}
 
         </div>
   )
